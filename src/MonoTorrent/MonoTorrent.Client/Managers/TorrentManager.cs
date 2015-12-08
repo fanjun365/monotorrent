@@ -614,8 +614,10 @@ namespace MonoTorrent.Client
 
                 if (TrackerManager.CurrentTracker != null)
                 {
+                    /* 2015-12-08 fj  can't download 
                     if (this.trackerManager.CurrentTracker.CanScrape)
                         this.TrackerManager.Scrape();
+                    */
                     this.trackerManager.Announce(TorrentEvent.Started); // Tell server we're starting
                 }
 
