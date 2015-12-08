@@ -86,7 +86,9 @@ namespace Mono.Ssdp.Internal
 
         public uint Add (TimeSpan timeout, TimeoutHandler handler, object state)
         {
-            CheckDisposed ();
+            CheckDisposed();
+            if (timeout == TimeSpan.Zero)
+                timeout = TimeSpan.FromMilliseconds(1);
             TimeoutItem item = new TimeoutItem ();
             item.Id = timeout_ids++;
             item.Timeout = timeout;

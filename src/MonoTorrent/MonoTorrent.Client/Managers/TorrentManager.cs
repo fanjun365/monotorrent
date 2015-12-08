@@ -93,6 +93,7 @@ namespace MonoTorrent.Client
         internal IUnchoker chokeUnchoker; // Used to choke and unchoke peers
 		private InactivePeerManager inactivePeerManager; // Used to identify inactive peers we don't want to connect to
 		internal DateTime lastCalledInactivePeerManager = DateTime.Now;
+        private DateTime lastActivity;
 #if !DISABLE_DHT	
 		private bool dhtInitialised;
 #endif		
@@ -328,6 +329,12 @@ namespace MonoTorrent.Client
 		{
 			get { return inactivePeerManager.InactivePeerList; }
 		}
+
+        public DateTime LastActivity 
+        {
+            get { return lastActivity; }
+            internal set { lastActivity = value; }
+        }
 
         #endregion
 
@@ -614,10 +621,11 @@ namespace MonoTorrent.Client
 
                 if (TrackerManager.CurrentTracker != null)
                 {
-                    /* 2015-12-08 fj  can't download 
+                    /*[fj][2015-12-08]fix can not download (don't know why,yet.)
                     if (this.trackerManager.CurrentTracker.CanScrape)
                         this.TrackerManager.Scrape();
                     */
+
                     this.trackerManager.Announce(TorrentEvent.Started); // Tell server we're starting
                 }
 
@@ -632,8 +640,8 @@ namespace MonoTorrent.Client
 #if !DISABLE_DHT
                 StartDHT();
 #endif
-                this.startTime = DateTime.Now;
                 this.pieceManager.Reset();
+                this.startTime = DateTime.Now;
 
                 ClientEngine.MainLoop.QueueTimeout(TimeSpan.FromSeconds(2), delegate {
                     if (State != TorrentState.Downloading && State != TorrentState.Seeding)
