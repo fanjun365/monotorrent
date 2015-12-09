@@ -138,7 +138,7 @@ namespace fanjun.UseMonoTorrent.Client
             c.Comment = "This is the comment";
             c.CreatedBy = "FanJun using " + VersionInfo.ClientVersion;
             c.Publisher = "FanJun";
-            c.PieceLength = 256 * 1024;
+            c.PieceLength = 256 * 1024; //256kb
 
 
             // Set the torrent as private so it will not use DHT or peer exchange

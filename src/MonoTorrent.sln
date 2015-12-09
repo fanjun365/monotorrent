@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "MySamples\Client\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{DF2E183B-C51C-4969-94EC-841CCC461773}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rd", "3rd", "{83E3602E-0DA9-4A77-92A5-8BBC566AE14B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torrenut", "..\third_src\torrenut\Torrenut.csproj", "{B365F46A-86A2-4A49-AED4-295A02F198B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +57,17 @@ Global
 		{DF2E183B-C51C-4969-94EC-841CCC461773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF2E183B-C51C-4969-94EC-841CCC461773}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF2E183B-C51C-4969-94EC-841CCC461773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B365F46A-86A2-4A49-AED4-295A02F198B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B365F46A-86A2-4A49-AED4-295A02F198B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B365F46A-86A2-4A49-AED4-295A02F198B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B365F46A-86A2-4A49-AED4-295A02F198B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A02E9245-A026-4C0A-8F16-D4BBB3F13D03} = {18D8818D-8D7E-4FED-B315-BBB6AD5EBE72}
+		{B365F46A-86A2-4A49-AED4-295A02F198B5} = {83E3602E-0DA9-4A77-92A5-8BBC566AE14B}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = SampleClient\SampleClient.csproj

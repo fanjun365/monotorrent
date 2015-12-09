@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="torrents" msprop:Generator_TableClassName="torrentsDataTable" msprop:Generator_TableVarName="tabletorrents" msprop:Generator_TablePropName="torrents" msprop:Generator_RowDeletingName="torrentsRowDeleting" msprop:Generator_RowChangingName="torrentsRowChanging" msprop:Generator_RowEvHandlerName="torrentsRowChangeEventHandler" msprop:Generator_RowDeletedName="torrentsRowDeleted" msprop:Generator_UserTableName="torrents" msprop:Generator_RowChangedName="torrentsRowChanged" msprop:Generator_RowEvArgName="torrentsRowChangeEvent" msprop:Generator_RowClassName="torrentsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SavePath" msprop:Generator_ColumnVarNameInTable="columnSavePath" msprop:Generator_ColumnPropNameInRow="SavePath" msprop:Generator_ColumnPropNameInTable="SavePathColumn" msprop:Generator_UserColumnName="SavePath" type="xs:string" minOccurs="0" />
+              <xs:element name="DotTorrentPath" msprop:Generator_ColumnVarNameInTable="columnDotTorrentPath" msprop:Generator_ColumnPropNameInRow="DotTorrentPath" msprop:Generator_ColumnPropNameInTable="DotTorrentPathColumn" msprop:Generator_UserColumnName="DotTorrentPath" type="xs:string" minOccurs="0" />
+              <xs:element name="State" msprop:Generator_ColumnVarNameInTable="columnState" msprop:Generator_ColumnPropNameInRow="State" msprop:Generator_ColumnPropNameInTable="StateColumn" msprop:Generator_UserColumnName="State" type="xs:string" minOccurs="0" />
+              <xs:element name="InfoHash" msprop:Generator_ColumnVarNameInTable="columnInfoHash" msprop:Generator_ColumnPropNameInRow="InfoHash" msprop:Generator_ColumnPropNameInTable="InfoHashColumn" msprop:Generator_UserColumnName="InfoHash" type="xs:string" />
+              <xs:element name="Progress" msprop:Generator_ColumnVarNameInTable="columnProgress" msprop:Generator_ColumnPropNameInRow="Progress" msprop:Generator_ColumnPropNameInTable="ProgressColumn" msprop:Generator_UserColumnName="Progress" type="xs:double" minOccurs="0" />
+              <xs:element name="DownloadSpeed" msprop:Generator_ColumnVarNameInTable="columnDownloadSpeed" msprop:Generator_ColumnPropNameInRow="DownloadSpeed" msprop:Generator_ColumnPropNameInTable="DownloadSpeedColumn" msprop:Generator_UserColumnName="DownloadSpeed" type="xs:int" minOccurs="0" />
+              <xs:element name="UploadSpeed" msprop:Generator_ColumnVarNameInTable="columnUploadSpeed" msprop:Generator_ColumnPropNameInRow="UploadSpeed" msprop:Generator_ColumnPropNameInTable="UploadSpeedColumn" msprop:Generator_UserColumnName="UploadSpeed" type="xs:int" minOccurs="0" />
+              <xs:element name="Leechs" msprop:Generator_ColumnVarNameInTable="columnLeechs" msprop:Generator_ColumnPropNameInRow="Leechs" msprop:Generator_ColumnPropNameInTable="LeechsColumn" msprop:Generator_UserColumnName="Leechs" type="xs:int" minOccurs="0" />
+              <xs:element name="Seeds" msprop:Generator_ColumnVarNameInTable="columnSeeds" msprop:Generator_ColumnPropNameInRow="Seeds" msprop:Generator_ColumnPropNameInTable="SeedsColumn" msprop:Generator_UserColumnName="Seeds" type="xs:int" minOccurs="0" />
+              <xs:element name="Size" msprop:Generator_ColumnVarNameInTable="columnSize" msprop:Generator_ColumnPropNameInRow="Size" msprop:Generator_ColumnPropNameInTable="SizeColumn" msprop:Generator_UserColumnName="Size" type="xs:long" minOccurs="0" />
+              <xs:element name="Downloaded" msprop:Generator_ColumnVarNameInTable="columnDownloaded" msprop:Generator_ColumnPropNameInRow="Downloaded" msprop:Generator_ColumnPropNameInTable="DownloadedColumn" msprop:Generator_UserColumnName="Downloaded" type="xs:long" minOccurs="0" />
+              <xs:element name="Uploaded" msprop:Generator_ColumnVarNameInTable="columnUploaded" msprop:Generator_ColumnPropNameInRow="Uploaded" msprop:Generator_ColumnPropNameInTable="UploadedColumn" msprop:Generator_UserColumnName="Uploaded" type="xs:long" minOccurs="0" />
+              <xs:element name="PeersAvailable" msprop:Generator_ColumnVarNameInTable="columnPeersAvailable" msprop:Generator_ColumnPropNameInRow="PeersAvailable" msprop:Generator_ColumnPropNameInTable="PeersAvailableColumn" msprop:Generator_UserColumnName="PeersAvailable" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="peers" msprop:Generator_TableClassName="peersDataTable" msprop:Generator_TableVarName="tablepeers" msprop:Generator_TablePropName="peers" msprop:Generator_RowDeletingName="peersRowDeleting" msprop:Generator_RowChangingName="peersRowChanging" msprop:Generator_RowEvHandlerName="peersRowChangeEventHandler" msprop:Generator_RowDeletedName="peersRowDeleted" msprop:Generator_UserTableName="peers" msprop:Generator_RowChangedName="peersRowChanged" msprop:Generator_RowEvArgName="peersRowChangeEvent" msprop:Generator_RowClassName="peersRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InfoHash" msprop:Generator_ColumnVarNameInTable="columnInfoHash" msprop:Generator_ColumnPropNameInRow="InfoHash" msprop:Generator_ColumnPropNameInTable="InfoHashColumn" msprop:Generator_UserColumnName="InfoHash" type="xs:string" />
+              <xs:element name="Uri" msprop:Generator_ColumnVarNameInTable="columnUri" msprop:Generator_ColumnPropNameInRow="Uri" msprop:Generator_ColumnPropNameInTable="UriColumn" msprop:Generator_UserColumnName="Uri" type="xs:string" />
+              <xs:element name="Downloaded" msprop:Generator_ColumnVarNameInTable="columnDownloaded" msprop:Generator_ColumnPropNameInRow="Downloaded" msprop:Generator_ColumnPropNameInTable="DownloadedColumn" msprop:Generator_UserColumnName="Downloaded" type="xs:long" minOccurs="0" />
+              <xs:element name="Uploaded" msprop:Generator_ColumnVarNameInTable="columnUploaded" msprop:Generator_ColumnPropNameInRow="Uploaded" msprop:Generator_ColumnPropNameInTable="UploadedColumn" msprop:Generator_UserColumnName="Uploaded" type="xs:long" minOccurs="0" />
+              <xs:element name="DownloadSpeed" msprop:Generator_ColumnVarNameInTable="columnDownloadSpeed" msprop:Generator_ColumnPropNameInRow="DownloadSpeed" msprop:Generator_ColumnPropNameInTable="DownloadSpeedColumn" msprop:Generator_UserColumnName="DownloadSpeed" type="xs:int" minOccurs="0" />
+              <xs:element name="UploadSpeed" msprop:Generator_ColumnVarNameInTable="columnUploadSpeed" msprop:Generator_ColumnPropNameInRow="UploadSpeed" msprop:Generator_ColumnPropNameInTable="UploadSpeedColumn" msprop:Generator_UserColumnName="UploadSpeed" type="xs:int" minOccurs="0" />
+              <xs:element name="ClientId" msprop:Generator_ColumnVarNameInTable="columnClientId" msprop:Generator_ColumnPropNameInRow="ClientId" msprop:Generator_ColumnPropNameInTable="ClientIdColumn" msprop:Generator_UserColumnName="ClientId" type="xs:string" minOccurs="0" />
+              <xs:element name="PeerId" msprop:Generator_ColumnVarNameInTable="columnPeerId" msprop:Generator_ColumnPropNameInRow="PeerId" msprop:Generator_ColumnPropNameInTable="PeerIdColumn" msprop:Generator_UserColumnName="PeerId" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="general" msprop:Generator_TableClassName="generalDataTable" msprop:Generator_TableVarName="tablegeneral" msprop:Generator_TablePropName="general" msprop:Generator_RowDeletingName="generalRowDeleting" msprop:Generator_RowChangingName="generalRowChanging" msprop:Generator_RowEvHandlerName="generalRowChangeEventHandler" msprop:Generator_RowDeletedName="generalRowDeleted" msprop:Generator_UserTableName="general" msprop:Generator_RowChangedName="generalRowChanged" msprop:Generator_RowEvArgName="generalRowChangeEvent" msprop:Generator_RowClassName="generalRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InfoHash" msprop:Generator_ColumnVarNameInTable="columnInfoHash" msprop:Generator_ColumnPropNameInRow="InfoHash" msprop:Generator_ColumnPropNameInTable="InfoHashColumn" msprop:Generator_UserColumnName="InfoHash" type="xs:string" />
+              <xs:element name="Size" msprop:Generator_ColumnVarNameInTable="columnSize" msprop:Generator_ColumnPropNameInRow="Size" msprop:Generator_ColumnPropNameInTable="SizeColumn" msprop:Generator_UserColumnName="Size" type="xs:string" minOccurs="0" />
+              <xs:element name="Comment" msprop:Generator_ColumnVarNameInTable="columnComment" msprop:Generator_ColumnPropNameInRow="Comment" msprop:Generator_ColumnPropNameInTable="CommentColumn" msprop:Generator_UserColumnName="Comment" type="xs:string" minOccurs="0" />
+              <xs:element name="Error" msprop:Generator_ColumnVarNameInTable="columnError" msprop:Generator_ColumnPropNameInRow="Error" msprop:Generator_ColumnPropNameInTable="ErrorColumn" msprop:Generator_UserColumnName="Error" type="xs:string" minOccurs="0" />
+              <xs:element name="CreatedBy" msprop:Generator_ColumnVarNameInTable="columnCreatedBy" msprop:Generator_ColumnPropNameInRow="CreatedBy" msprop:Generator_ColumnPropNameInTable="CreatedByColumn" msprop:Generator_UserColumnName="CreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="CreationDate" msprop:Generator_ColumnVarNameInTable="columnCreationDate" msprop:Generator_ColumnPropNameInRow="CreationDate" msprop:Generator_ColumnPropNameInTable="CreationDateColumn" msprop:Generator_UserColumnName="CreationDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Encoding" msprop:Generator_ColumnVarNameInTable="columnEncoding" msprop:Generator_ColumnPropNameInRow="Encoding" msprop:Generator_ColumnPropNameInTable="EncodingColumn" msprop:Generator_UserColumnName="Encoding" type="xs:string" minOccurs="0" />
+              <xs:element name="IsPrivate" msprop:Generator_ColumnVarNameInTable="columnIsPrivate" msprop:Generator_ColumnPropNameInRow="IsPrivate" msprop:Generator_ColumnPropNameInTable="IsPrivateColumn" msprop:Generator_UserColumnName="IsPrivate" type="xs:boolean" minOccurs="0" />
+              <xs:element name="PublisherUrl" msprop:Generator_ColumnVarNameInTable="columnPublisherUrl" msprop:Generator_ColumnPropNameInRow="PublisherUrl" msprop:Generator_ColumnPropNameInTable="PublisherUrlColumn" msprop:Generator_UserColumnName="PublisherUrl" type="xs:string" minOccurs="0" />
+              <xs:element name="Publisher" msprop:Generator_ColumnVarNameInTable="columnPublisher" msprop:Generator_ColumnPropNameInRow="Publisher" msprop:Generator_ColumnPropNameInTable="PublisherColumn" msprop:Generator_UserColumnName="Publisher" type="xs:string" minOccurs="0" />
+              <xs:element name="CanUseDht" msprop:Generator_ColumnVarNameInTable="columnCanUseDht" msprop:Generator_ColumnPropNameInRow="CanUseDht" msprop:Generator_ColumnPropNameInTable="CanUseDhtColumn" msprop:Generator_UserColumnName="CanUseDht" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="files" msprop:Generator_TableClassName="filesDataTable" msprop:Generator_TableVarName="tablefiles" msprop:Generator_RowChangedName="filesRowChanged" msprop:Generator_TablePropName="files" msprop:Generator_RowDeletingName="filesRowDeleting" msprop:Generator_RowChangingName="filesRowChanging" msprop:Generator_RowEvHandlerName="filesRowChangeEventHandler" msprop:Generator_RowDeletedName="filesRowDeleted" msprop:Generator_RowClassName="filesRow" msprop:Generator_UserTableName="files" msprop:Generator_RowEvArgName="filesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InfoHash" msprop:Generator_ColumnVarNameInTable="columnInfoHash" msprop:Generator_ColumnPropNameInRow="InfoHash" msprop:Generator_ColumnPropNameInTable="InfoHashColumn" msprop:Generator_UserColumnName="InfoHash" type="xs:string" />
+              <xs:element name="Size" msprop:Generator_ColumnVarNameInTable="columnSize" msprop:Generator_ColumnPropNameInRow="Size" msprop:Generator_ColumnPropNameInTable="SizeColumn" msprop:Generator_UserColumnName="Size" type="xs:long" minOccurs="0" />
+              <xs:element name="Downloaded" msprop:Generator_ColumnVarNameInTable="columnDownloaded" msprop:Generator_ColumnPropNameInRow="Downloaded" msprop:Generator_ColumnPropNameInTable="DownloadedColumn" msprop:Generator_UserColumnName="Downloaded" type="xs:long" minOccurs="0" />
+              <xs:element name="Filename" msprop:Generator_ColumnVarNameInTable="columnFilename" msprop:Generator_ColumnPropNameInRow="Filename" msprop:Generator_ColumnPropNameInTable="FilenameColumn" msprop:Generator_UserColumnName="Filename" type="xs:string" minOccurs="0" />
+              <xs:element name="FullPath" msprop:Generator_ColumnVarNameInTable="columnFullPath" msprop:Generator_ColumnPropNameInRow="FullPath" msprop:Generator_ColumnPropNameInTable="FullPathColumn" msprop:Generator_UserColumnName="FullPath" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="trackers" msprop:Generator_TableClassName="trackersDataTable" msprop:Generator_TableVarName="tabletrackers" msprop:Generator_RowChangedName="trackersRowChanged" msprop:Generator_TablePropName="trackers" msprop:Generator_RowDeletingName="trackersRowDeleting" msprop:Generator_RowChangingName="trackersRowChanging" msprop:Generator_RowEvHandlerName="trackersRowChangeEventHandler" msprop:Generator_RowDeletedName="trackersRowDeleted" msprop:Generator_RowClassName="trackersRow" msprop:Generator_UserTableName="trackers" msprop:Generator_RowEvArgName="trackersRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InfoHash" msprop:Generator_ColumnVarNameInTable="columnInfoHash" msprop:Generator_ColumnPropNameInRow="InfoHash" msprop:Generator_ColumnPropNameInTable="InfoHashColumn" msprop:Generator_UserColumnName="InfoHash" type="xs:string" />
+              <xs:element name="Uri" msprop:Generator_ColumnVarNameInTable="columnUri" msprop:Generator_ColumnPropNameInRow="Uri" msprop:Generator_ColumnPropNameInTable="UriColumn" msprop:Generator_UserColumnName="Uri" type="xs:string" />
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:short" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="WarningMessage" msprop:Generator_ColumnVarNameInTable="columnWarningMessage" msprop:Generator_ColumnPropNameInRow="WarningMessage" msprop:Generator_ColumnPropNameInTable="WarningMessageColumn" msprop:Generator_UserColumnName="WarningMessage" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="configuration" msprop:Generator_TableClassName="configurationDataTable" msprop:Generator_TableVarName="tableconfiguration" msprop:Generator_RowChangedName="configurationRowChanged" msprop:Generator_TablePropName="configuration" msprop:Generator_RowDeletingName="configurationRowDeleting" msprop:Generator_RowChangingName="configurationRowChanging" msprop:Generator_RowEvHandlerName="configurationRowChangeEventHandler" msprop:Generator_RowDeletedName="configurationRowDeleted" msprop:Generator_RowClassName="configurationRow" msprop:Generator_UserTableName="configuration" msprop:Generator_RowEvArgName="configurationRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="port" msprop:Generator_ColumnVarNameInTable="columnport" msprop:Generator_ColumnPropNameInRow="port" msprop:Generator_ColumnPropNameInTable="portColumn" msprop:Generator_UserColumnName="port" type="xs:int" minOccurs="0" />
+              <xs:element name="DownloadDir" msprop:Generator_ColumnVarNameInTable="columnDownloadDir" msprop:Generator_ColumnPropNameInRow="DownloadDir" msprop:Generator_ColumnPropNameInTable="DownloadDirColumn" msprop:Generator_UserColumnName="DownloadDir" type="xs:string" minOccurs="0" />
+              <xs:element name="DHT" msprop:Generator_ColumnVarNameInTable="columnDHT" msprop:Generator_ColumnPropNameInRow="DHT" msprop:Generator_ColumnPropNameInTable="DHTColumn" msprop:Generator_UserColumnName="DHT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DownloadSpeedLimit" msprop:Generator_ColumnVarNameInTable="columnDownloadSpeedLimit" msprop:Generator_ColumnPropNameInRow="DownloadSpeedLimit" msprop:Generator_ColumnPropNameInTable="DownloadSpeedLimitColumn" msprop:Generator_UserColumnName="DownloadSpeedLimit" type="xs:int" minOccurs="0" />
+              <xs:element name="UploadSpeedLimit" msprop:Generator_ColumnVarNameInTable="columnUploadSpeedLimit" msprop:Generator_ColumnPropNameInRow="UploadSpeedLimit" msprop:Generator_ColumnPropNameInTable="UploadSpeedLimitColumn" msprop:Generator_UserColumnName="UploadSpeedLimit" type="xs:int" minOccurs="0" />
+              <xs:element name="DHTPort" msprop:Generator_ColumnVarNameInTable="columnDHTPort" msprop:Generator_ColumnPropNameInRow="DHTPort" msprop:Generator_ColumnPropNameInTable="DHTPortColumn" msprop:Generator_UserColumnName="DHTPort" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:torrents" />
+      <xs:field xpath="mstns:InfoHash" />
+    </xs:unique>
+    <xs:unique name="peers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:peers" />
+      <xs:field xpath="mstns:Uri" />
+      <xs:field xpath="mstns:InfoHash" />
+      <xs:field xpath="mstns:PeerId" />
+    </xs:unique>
+    <xs:unique name="general_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:general" />
+      <xs:field xpath="mstns:InfoHash" />
+    </xs:unique>
+    <xs:unique name="files_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:files" />
+      <xs:field xpath="mstns:InfoHash" />
+      <xs:field xpath="mstns:FullPath" />
+    </xs:unique>
+    <xs:unique name="trackers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:trackers" />
+      <xs:field xpath="mstns:InfoHash" />
+      <xs:field xpath="mstns:Uri" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
