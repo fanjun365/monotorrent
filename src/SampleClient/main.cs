@@ -13,30 +13,31 @@ using MonoTorrent.Client.Encryption;
 using MonoTorrent.Client.Tracker;
 using MonoTorrent.Dht;
 using MonoTorrent.Dht.Listeners;
+using System.Configuration;
 
 namespace MonoTorrent
 {
     class main
     {
-        static string dhtNodeFile;
-        static string basePath;
-        static string downloadsPath;
-        static string fastResumeFile;
-        static string torrentsPath;
-        static ClientEngine engine;				// The engine used for downloading
-        static List<TorrentManager> torrents;	// The list where all the torrentManagers will be stored that the engine gives us
-        static Top10Listener listener;			// This is a subclass of TraceListener which remembers the last 20 statements sent to it
+        static string m_basePath;               // This is the directory we are currently in
+        static string m_torrentsPath;           // This is the directory we will save .torrents to
+        static string m_downloadsPath;          // This is the directory we will save downloads to
+        static string m_fastResumeFile;
+        static string m_dhtNodeFile;
+        static ClientEngine m_engine;	        // The engine used for downloading
+        static List<TorrentManager> m_torrents;	// The list where all the torrentManagers will be stored that the engine gives us
+        static Top10Listener m_listener;	    // This is a subclass of TraceListener which remembers the last 20 statements sent to it
 
         static void Main(string[] args)
         {
             /* Generate the paths to the folder we will save .torrent files to and where we download files to */
-            basePath = Environment.CurrentDirectory;						// This is the directory we are currently in
-            torrentsPath = Path.Combine(basePath, "Torrents");				// This is the directory we will save .torrents to
-            downloadsPath = Path.Combine(basePath, "Downloads");			// This is the directory we will save downloads to
-            fastResumeFile = Path.Combine(torrentsPath, "fastresume.data");
-            dhtNodeFile = Path.Combine(basePath, "DhtNodes");
-            torrents = new List<TorrentManager>();							// This is where we will store the torrentmanagers
-            listener = new Top10Listener(10);
+            m_basePath = AppDomain.CurrentDomain.BaseDirectory;   
+            m_torrentsPath = Path.Combine(m_basePath, ConfigurationManager.AppSettings["dir_torrents"]);
+            m_downloadsPath = Path.Combine(m_basePath, ConfigurationManager.AppSettings["dir_download"]);
+            m_fastResumeFile = Path.Combine(m_torrentsPath, ConfigurationManager.AppSettings["file_FastResume"]);
+            m_dhtNodeFile = Path.Combine(m_basePath, ConfigurationManager.AppSettings["file_DhtNodes"]);
+            m_torrents = new List<TorrentManager>();
+            m_listener = new Top10Listener(10);
 
             // We need to cleanup correctly when the user closes the window by using ctrl-c
             // or an unhandled exception happens
@@ -61,13 +62,17 @@ namespace MonoTorrent
             // Create the settings which the engine will use
             // downloadsPath - this is the path where we will save all the files to
             // port - this is the port we listen for connections on
-            EngineSettings engineSettings = new EngineSettings(downloadsPath, port);
+            EngineSettings engineSettings = new EngineSettings(m_downloadsPath, port);
             engineSettings.PreferEncryption = false;
             engineSettings.AllowedEncryption = EncryptionTypes.All;
+
 
             //engineSettings.GlobalMaxUploadSpeed = 30 * 1024;
             //engineSettings.GlobalMaxDownloadSpeed = 100 * 1024;
             //engineSettings.MaxReadRate = 1 * 1024 * 1024;
+            engineSettings.GlobalMaxUploadSpeed = 500 * 1024;   //500kb
+            engineSettings.GlobalMaxDownloadSpeed = 1024 * 1024;//1mb
+            engineSettings.MaxReadRate = 1 * 1024 * 1024;
 
 
             // Create the default settings which a torrent will have.
@@ -78,12 +83,12 @@ namespace MonoTorrent
             TorrentSettings torrentDefaults = new TorrentSettings(4, 150, 0, 0);
 
             // Create an instance of the engine.
-            engine = new ClientEngine(engineSettings);
-            engine.ChangeListenEndpoint(new IPEndPoint(IPAddress.Any, port));
+            m_engine = new ClientEngine(engineSettings);
+            m_engine.ChangeListenEndpoint(new IPEndPoint(IPAddress.Any, port));
             byte[] nodes = null;
             try
             {
-                nodes = File.ReadAllBytes(dhtNodeFile);
+                nodes = File.ReadAllBytes(m_dhtNodeFile);
             }
             catch
             {
@@ -92,22 +97,22 @@ namespace MonoTorrent
 
             DhtListener dhtListner = new DhtListener (new IPEndPoint (IPAddress.Any, port));
             DhtEngine dht = new DhtEngine (dhtListner);
-            engine.RegisterDht(dht);
+            m_engine.RegisterDht(dht);
             dhtListner.Start();
-            engine.DhtEngine.Start(nodes);
+            m_engine.DhtEngine.Start(nodes);
             
             // If the SavePath does not exist, we want to create it.
-            if (!Directory.Exists(engine.Settings.SavePath))
-                Directory.CreateDirectory(engine.Settings.SavePath);
+            if (!Directory.Exists(m_engine.Settings.SavePath))
+                Directory.CreateDirectory(m_engine.Settings.SavePath);
 
             // If the torrentsPath does not exist, we want to create it
-            if (!Directory.Exists(torrentsPath))
-                Directory.CreateDirectory(torrentsPath);
+            if (!Directory.Exists(m_torrentsPath))
+                Directory.CreateDirectory(m_torrentsPath);
 
             BEncodedDictionary fastResume;
             try
             {
-                fastResume = BEncodedValue.Decode<BEncodedDictionary>(File.ReadAllBytes(fastResumeFile));
+                fastResume = BEncodedValue.Decode<BEncodedDictionary>(File.ReadAllBytes(m_fastResumeFile));
             }
             catch
             {
@@ -115,7 +120,7 @@ namespace MonoTorrent
             }
 
             // For each file in the torrents path that is a .torrent file, load it into the engine.
-            foreach (string file in Directory.GetFiles(torrentsPath))
+            foreach (string file in Directory.GetFiles(m_torrentsPath))
             {
                 if (file.EndsWith(".torrent"))
                 {
@@ -134,41 +139,41 @@ namespace MonoTorrent
                     }
                     // When any preprocessing has been completed, you create a TorrentManager
                     // which you then register with the engine.
-                    TorrentManager manager = new TorrentManager(torrent, downloadsPath, torrentDefaults);
+                    TorrentManager manager = new TorrentManager(torrent, m_downloadsPath, torrentDefaults);
                     if (fastResume.ContainsKey(torrent.InfoHash.ToHex ()))
                         manager.LoadFastResume(new FastResume ((BEncodedDictionary)fastResume[torrent.infoHash.ToHex ()]));
-                    engine.Register(manager);
+                    m_engine.Register(manager);
 
                     // Store the torrent manager in our list so we can access it later
-                    torrents.Add(manager);
+                    m_torrents.Add(manager);
                     manager.PeersFound += new EventHandler<PeersAddedEventArgs>(manager_PeersFound);
                 }
             }
 
             // If we loaded no torrents, just exist. The user can put files in the torrents directory and start
             // the client again
-            if (torrents.Count == 0)
+            if (m_torrents.Count == 0)
             {
                 Console.WriteLine("No torrents found in the Torrents directory");
                 Console.WriteLine("Exiting...");
-                engine.Dispose();
+                m_engine.Dispose();
                 return;
             }
 
             // For each torrent manager we loaded and stored in our list, hook into the events
             // in the torrent manager and start the engine.
-            foreach (TorrentManager manager in torrents)
+            foreach (TorrentManager manager in m_torrents)
             {
                 // Every time a piece is hashed, this is fired.
                 manager.PieceHashed += delegate(object o, PieceHashedEventArgs e) {
-                    lock (listener)
-                        listener.WriteLine(string.Format("Piece Hashed: {0} - {1}", e.PieceIndex, e.HashPassed ? "Pass" : "Fail"));
+                    lock (m_listener)
+                        m_listener.WriteLine(string.Format("Piece Hashed: {0} - {1}", e.PieceIndex, e.HashPassed ? "Pass" : "Fail"));
                 };
 
                 // Every time the state changes (Stopped -> Seeding -> Downloading -> Hashing) this is fired
                 manager.TorrentStateChanged += delegate (object o, TorrentStateChangedEventArgs e) {
-                    lock (listener)
-                        listener.WriteLine("OldState: " + e.OldState.ToString() + " NewState: " + e.NewState.ToString());
+                    lock (m_listener)
+                        m_listener.WriteLine("OldState: " + e.OldState.ToString() + " NewState: " + e.NewState.ToString());
                 };
 
                 // Every time the tracker's state changes, this is fired
@@ -177,7 +182,7 @@ namespace MonoTorrent
                     foreach (MonoTorrent.Client.Tracker.Tracker t in tier.Trackers)
                     {
                         t.AnnounceComplete += delegate(object sender, AnnounceResponseEventArgs e) {
-                            listener.WriteLine(string.Format("{0}: {1}", e.Successful, e.Tracker.ToString()));
+                            m_listener.WriteLine(string.Format("{0}: {1}", e.Successful, e.Tracker.ToString()));
                         };
                     }
                 }
@@ -195,17 +200,17 @@ namespace MonoTorrent
                 if ((i++) % 10 == 0)
                 {
                     sb.Remove(0, sb.Length);
-                    running = torrents.Exists(delegate(TorrentManager m) { return m.State != TorrentState.Stopped; });
+                    running = m_torrents.Exists(delegate(TorrentManager m) { return m.State != TorrentState.Stopped; });
 
-                    AppendFormat(sb, "Total Download Rate: {0:0.00}kB/sec", engine.TotalDownloadSpeed / 1024.0);
-                    AppendFormat(sb, "Total Upload Rate:   {0:0.00}kB/sec", engine.TotalUploadSpeed / 1024.0);
-                    AppendFormat(sb, "Disk Read Rate:      {0:0.00} kB/s", engine.DiskManager.ReadRate / 1024.0);
-                    AppendFormat(sb, "Disk Write Rate:     {0:0.00} kB/s", engine.DiskManager.WriteRate / 1024.0);
-                    AppendFormat(sb, "Total Read:         {0:0.00} kB", engine.DiskManager.TotalRead / 1024.0);
-                    AppendFormat(sb, "Total Written:      {0:0.00} kB", engine.DiskManager.TotalWritten / 1024.0);
-                    AppendFormat(sb, "Open Connections:    {0}", engine.ConnectionManager.OpenConnections);
+                    AppendFormat(sb, "Total Download Rate: {0:0.00}kB/sec", m_engine.TotalDownloadSpeed / 1024.0);
+                    AppendFormat(sb, "Total Upload Rate:   {0:0.00}kB/sec", m_engine.TotalUploadSpeed / 1024.0);
+                    AppendFormat(sb, "Disk Read Rate:      {0:0.00} kB/s", m_engine.DiskManager.ReadRate / 1024.0);
+                    AppendFormat(sb, "Disk Write Rate:     {0:0.00} kB/s", m_engine.DiskManager.WriteRate / 1024.0);
+                    AppendFormat(sb, "Total Read:         {0:0.00} kB", m_engine.DiskManager.TotalRead / 1024.0);
+                    AppendFormat(sb, "Total Written:      {0:0.00} kB", m_engine.DiskManager.TotalWritten / 1024.0);
+                    AppendFormat(sb, "Open Connections:    {0}", m_engine.ConnectionManager.OpenConnections);
                     
-                    foreach (TorrentManager manager in torrents)
+                    foreach (TorrentManager manager in m_torrents)
                     {
                         AppendSeperator(sb);
                         AppendFormat(sb, "State:           {0}", manager.State);
@@ -235,7 +240,7 @@ namespace MonoTorrent
                     }
                     Console.Clear();
                     Console.WriteLine(sb.ToString());
-                    listener.ExportTo(Console.Out);
+                    m_listener.ExportTo(Console.Out);
                 }
 
                 System.Threading.Thread.Sleep(500);
@@ -244,8 +249,8 @@ namespace MonoTorrent
 
         static void manager_PeersFound(object sender, PeersAddedEventArgs e)
         {
-            lock (listener)
-                listener.WriteLine(string.Format("Found {0} new peers and {1} existing peers", e.NewPeers, e.ExistingPeers ));//throw new Exception("The method or operation is not implemented.");
+            lock (m_listener)
+                m_listener.WriteLine(string.Format("Found {0} new peers and {1} existing peers", e.NewPeers, e.ExistingPeers ));//throw new Exception("The method or operation is not implemented.");
         }
 
         private static void AppendSeperator(StringBuilder sb)
@@ -266,23 +271,23 @@ namespace MonoTorrent
 		private static void shutdown()
 		{
             BEncodedDictionary fastResume = new BEncodedDictionary();
-            for (int i = 0; i < torrents.Count; i++)
+            for (int i = 0; i < m_torrents.Count; i++)
             {
-                torrents[i].Stop(); ;
-                while (torrents[i].State != TorrentState.Stopped)
+                m_torrents[i].Stop(); ;
+                while (m_torrents[i].State != TorrentState.Stopped)
                 {
-                    Console.WriteLine("{0} is {1}", torrents[i].Torrent.Name, torrents[i].State);
+                    Console.WriteLine("{0} is {1}", m_torrents[i].Torrent.Name, m_torrents[i].State);
                     Thread.Sleep(250);
                 }
 
-                fastResume.Add(torrents[i].Torrent.InfoHash.ToHex (), torrents[i].SaveFastResume().Encode());
+                fastResume.Add(m_torrents[i].Torrent.InfoHash.ToHex (), m_torrents[i].SaveFastResume().Encode());
             }
 
 #if !DISABLE_DHT
-            File.WriteAllBytes(dhtNodeFile, engine.DhtEngine.SaveNodes());
+            File.WriteAllBytes(m_dhtNodeFile, m_engine.DhtEngine.SaveNodes());
 #endif
-            File.WriteAllBytes(fastResumeFile, fastResume.Encode());
-            engine.Dispose();
+            File.WriteAllBytes(m_fastResumeFile, fastResume.Encode());
+            m_engine.Dispose();
 
 			foreach (TraceListener lst in Debug.Listeners)
 			{

@@ -93,22 +93,24 @@ namespace SampleTracker
 
     class MySimpleTracker
     {
-        Tracker tracker;
-        TorrentFolderWatcher watcher;
-        const string TORRENT_DIR = "Torrents";
+        Tracker m_tracker;
+        TorrentFolderWatcher m_watcher;
 
         ///<summary>Start the Tracker. Start Watching the TORRENT_DIR Directory for new Torrents.</summary>
         public MySimpleTracker()
         {
             int port = int.Parse(System.Configuration.ConfigurationManager.AppSettings["port"]);
-
-            System.Net.IPEndPoint listenpoint = new System.Net.IPEndPoint(System.Net.IPAddress.Loopback, port);
-            Console.WriteLine("Listening at: {0}", listenpoint);
-            ListenerBase listener = new HttpListener(listenpoint);
-            tracker = new Tracker();
-            tracker.AllowUnregisteredTorrents = true;
-            tracker.RegisterListener(listener);
+            //System.Net.IPEndPoint listenpoint = new System.Net.IPEndPoint(System.Net.IPAddress.Loopback, port);
+            //Console.WriteLine("Listening at: {0}", listenpoint);
+            //ListenerBase listener = new HttpListener(listenpoint);
+            string httpPrefix = "http://192.168.100.169:" + port.ToString() + "/announce/";
+            Console.WriteLine("Listening at: {0}", httpPrefix);
+            ListenerBase listener = new HttpListener(httpPrefix);
+            m_tracker = new Tracker();
+            m_tracker.AllowUnregisteredTorrents = true;
+            m_tracker.RegisterListener(listener);
             listener.Start();
+
 
             SetupTorrentWatcher();
 
@@ -121,8 +123,10 @@ namespace SampleTracker
 
         private void SetupTorrentWatcher()
         {
-            watcher = new TorrentFolderWatcher(Path.GetFullPath(TORRENT_DIR), "*.torrent");
-            watcher.TorrentFound += delegate(object sender, TorrentWatcherEventArgs e)
+            string dirTorrent = System.Configuration.ConfigurationManager.AppSettings["dir_torrents"];
+
+            m_watcher = new TorrentFolderWatcher(Path.GetFullPath(dirTorrent), "*.torrent");
+            m_watcher.TorrentFound += delegate(object sender, TorrentWatcherEventArgs e)
             {
                 try
                 {
@@ -145,8 +149,8 @@ namespace SampleTracker
 
                     // The lock is here because the TorrentFound event is asyncronous and I have
                     // to ensure that only 1 thread access the tracker at the same time.
-                    lock (tracker)
-                        tracker.Add(trackable);
+                    lock (m_tracker)
+                        m_tracker.Add(trackable);
                 }
                 catch (Exception ex)
                 {
@@ -155,8 +159,8 @@ namespace SampleTracker
                 }
             };
 
-            watcher.Start();
-            watcher.ForceScan();
+            m_watcher.Start();
+            m_watcher.ForceScan();
         }
 
         public void OnProcessExit(object sender, EventArgs e)

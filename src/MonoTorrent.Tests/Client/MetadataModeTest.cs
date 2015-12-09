@@ -104,8 +104,8 @@ namespace MonoTorrent.Client
         [Test]
         public void SendMetadata_ToFolder()
         {
-            Setup(true, Environment.CurrentDirectory);
-            SendMetadataCore(Path.Combine(Environment.CurrentDirectory, rig.Torrent.InfoHash.ToHex () + ".torrent"));
+            Setup(true, AppDomain.CurrentDomain.BaseDirectory);
+            SendMetadataCore(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rig.Torrent.InfoHash.ToHex() + ".torrent"));
         }
 
         public void SendMetadataCore (string expectedPath)
